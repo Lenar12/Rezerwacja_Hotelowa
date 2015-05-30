@@ -16,5 +16,10 @@ namespace Rezerwacja_w_hotelu
         {
             InitializeComponent();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
