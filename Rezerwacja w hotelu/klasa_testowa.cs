@@ -13,10 +13,7 @@ namespace Rezerwacja_w_hotelu
             //nic ciekawego
             
         }
-        void KrzychuTuByl()
-        {
-            //j.w
-        }
+        //nie ma Krzysia
         void dupa()
         {
             //tutaj dupa
