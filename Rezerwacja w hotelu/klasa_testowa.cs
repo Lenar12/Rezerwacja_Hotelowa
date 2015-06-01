@@ -12,5 +12,13 @@ namespace Rezerwacja_w_hotelu
         {
             //nic ciekawego
         }
+        void dupa()
+        {
+            //tutaj dupa
+        }
+        void cycki()
+        {
+            //tutaj cos
+        }
     }
 }
