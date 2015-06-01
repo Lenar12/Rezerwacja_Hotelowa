@@ -54,6 +54,7 @@ namespace Rezerwacja_w_hotelu
                     {
                         case "1":           //forma recepcjonisty
                             form = new Form2();
+                            form.Show();
                             break;
                         case "2":           //forma administratora
                             form = new Form3();
