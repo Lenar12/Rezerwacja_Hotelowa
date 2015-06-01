@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Rezerwacja_w_hotelu
 {
-    class klasa_testowa
+    public static class klasa_testowa
     {
         void test()
         {
-            //nic ciekawego
-            
+            //nic ciekawego ... a jednak 
+            cycki();
         }
         //nie ma Krzysia
         void dupa()
@@ -23,4 +23,5 @@ namespace Rezerwacja_w_hotelu
             //tutaj cos
         }
     }
+ 
 }
