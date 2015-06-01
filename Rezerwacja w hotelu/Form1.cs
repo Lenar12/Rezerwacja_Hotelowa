@@ -20,7 +20,7 @@ namespace Rezerwacja_w_hotelu
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+         
         }
 
         private void cancel_button_Click(object sender, EventArgs e)
