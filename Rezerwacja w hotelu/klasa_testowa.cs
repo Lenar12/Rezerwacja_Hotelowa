@@ -6,21 +6,19 @@ using System.Threading.Tasks;
 
 namespace Rezerwacja_w_hotelu
 {
-    class klasa_testowa
+    public class klasa_testowa
     {
-        void test()
+        public int value;
+        public void test()
         {
             //nic ciekawego
             
         }
         //nie ma Krzysia
-        void dupa()
+        public void dupa()
         {
+            this.value = 10;
             //tutaj dupa
-        }
-        void cycki()
-        {
-            //tutaj cos
         }
     }
 }
