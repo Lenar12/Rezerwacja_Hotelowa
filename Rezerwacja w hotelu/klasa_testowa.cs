@@ -11,6 +11,11 @@ namespace Rezerwacja_w_hotelu
         void test()
         {
             //nic ciekawego
+            
+        }
+        void KrzychuTuByl()
+        {
+            //j.w
         }
     }
 }

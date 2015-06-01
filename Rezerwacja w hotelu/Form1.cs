@@ -58,6 +58,7 @@ namespace Rezerwacja_w_hotelu
                             break;
                         case "2":           //forma administratora
                             form = new Form3();
+                            form.Show();
                             break;
                         case "3":           //forma sprzątaczki
                             //form= new Form4();
