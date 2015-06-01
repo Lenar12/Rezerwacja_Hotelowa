@@ -34,9 +34,6 @@ namespace Rezerwacja_w_hotelu
             SqlDataAdapter select_com = new SqlDataAdapter("SELECT COUNT(*) FROM uzytkownicy WHERE login='"+login_box.Text+"' and haslo='"+password_box.Text+"'",connect);
             DataTable dt = new DataTable();
             select_com.Fill(dt);
-
-            klasa_testowa testuje = new klasa_testowa();
-            testuje.dupa();
                         
             if (dt.Rows[0][0].ToString() == "1")
             {
