@@ -16,6 +16,7 @@ namespace Rezerwacja_w_hotelu
             connStr += @"AttachDBfilename=""|DataDirectory|\baza_danych.mdf"";";
             connStr += @"Integrated Security=True";
             SqlConnection connection = new SqlConnection(connStr);
+            
             return connection;
         }
     }

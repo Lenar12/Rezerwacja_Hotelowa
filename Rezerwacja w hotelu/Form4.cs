@@ -14,6 +14,7 @@ namespace Rezerwacja_w_hotelu
     {
         SqlConnection connect = new SqlConnection();
         SqlDataAdapter adapter = new SqlDataAdapter();
+        SqlCommand cmd = new SqlCommand();
 
         public Form4()
         {
@@ -30,16 +31,28 @@ namespace Rezerwacja_w_hotelu
         { // update bazy o wynajęcie pokoju .. // nie apdejtuje lokalnej bazy ..  to pewnie wina nie zdefiniowanego adaptera ??? 
             try
             {
+                //connect = sql_connection.GetConnection();
+                //DataTable dt=new DataTable();
+                //adapter = new SqlDataAdapter("SELECT COUNT(*) FROM uzytkownicy WHERE login='" + Login_box.Text + "'", connect);
+                //SqlCommand cmd = new SqlCommand();
+                //cmd.CommandText = "UPDATE pokoje SET stan_pokoju = 'true', Data_pocz_rezerwacji ='" + fromrez_box.Text + "', Data_kon_rezerwacji='" + Torez_box.Text + "'WHERE numer_pokoju='" + numroom_box.Text + "'";
+                //cmd.Connection = connect;
+                //cmd.Connection.Open();
+                //cmd.ExecuteNonQuery();
+                //cmd.Connection.Close();
+                //adapter.UpdateCommand = cmd;
+                //adapter.Fill(dt);
+                //adapter.Update(dt);
+                //DataGridView.
                 connect = sql_connection.GetConnection();
-                adapter = new SqlDataAdapter("SELECT COUNT(*) FROM uzytkownicy WHERE login='" + Login_box.Text + "'", connect);
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "Update pokoje SET stan_pokoju = 'true', Data_pocz_rezerwacji ='" + fromrez_box.Text + "', Data_kon_rezerwacji='" + Torez_box.Text + "'WHERE numer_pokoju='" + numroom_box.Text + "'";
+                connect.Open();
                 cmd.Connection = connect;
-                cmd.Connection.Open();
+                cmd.CommandText = "UPDATE pokoje SET stan_pokoju = 'true', Data_pocz_rezerwacji ='" + fromrez_box.Text + "', Data_kon_rezerwacji='" + Torez_box.Text + "'WHERE numer_pokoju='" + numroom_box.Text + "'";
                 cmd.ExecuteNonQuery();
-                cmd.Connection.Close();
+                connect.Close();
+
                 MessageBox.Show("Pokój numer " + numroom_box.Text + " zarezerwowany pomyślnie");
-                adapter.Update(baza_danychDataSet.)
+                
                 this.Hide();
             }
             catch (SqlException ex)

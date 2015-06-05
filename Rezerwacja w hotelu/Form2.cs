@@ -14,17 +14,15 @@ namespace Rezerwacja_w_hotelu
 { 
     public partial class Form2 : Form
     {
-
+        
         public Form2()
         {
             InitializeComponent();
             numberroom_box.Enabled = false;
         }
 
-        private void Form2_Load(object sender, EventArgs e)
-        {
-          
-        }
+
+     
 
         private void button1_Click(object sender, EventArgs e)
         {
