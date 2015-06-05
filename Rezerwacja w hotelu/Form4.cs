@@ -39,6 +39,8 @@ namespace Rezerwacja_w_hotelu
                 cmd.ExecuteNonQuery();
                 cmd.Connection.Close();
                 MessageBox.Show("Pokój numer " + numroom_box.Text + " zarezerwowany pomyślnie");
+                adapter.Update(baza_danychDataSet.)
+                this.Hide();
             }
             catch (SqlException ex)
             {
@@ -93,7 +95,7 @@ namespace Rezerwacja_w_hotelu
 
         private void Form4_Load(object sender, EventArgs e)
         {
-
+            
         }
     }
 }
