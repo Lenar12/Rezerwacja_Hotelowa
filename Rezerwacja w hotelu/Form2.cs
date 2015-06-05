@@ -14,27 +14,41 @@ namespace Rezerwacja_w_hotelu
 { 
     public partial class Form2 : Form
     {
+
         public Form2()
         {
             InitializeComponent();
-            button2.Enabled = false;
+            numberroom_box.Enabled = false;
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-
+          
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            button2.Enabled = true;
-            SqlConnection connect = sql_connection.GetConnection();
-            SqlDataAdapter adapter = new SqlDataAdapter(" SELECT * from pokoje ", connect);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            // wyświetlenie tabeli pokoi
-            dataGridView1.DataSource = dt;
+           
+            if ((checkBox1.CheckState == CheckState.Checked) && (checkBox2.CheckState == CheckState.Checked))
+            {
+                GetData("SELECT * FROM pokoje where ilosc_miejsc = '" + numberroom_box.Text + "' AND stan_pokoju = 'false'");
 
+            }
+            else if (checkBox1.CheckState == CheckState.Checked)
+            {
+                GetData("SELECT * FROM pokoje where stan_pokoju = 'false' ");
+            }
+            else if (checkBox2.CheckState == CheckState.Checked)
+            {
+
+                GetData("SELECT * FROM pokoje where ilosc_miejsc = '"+numberroom_box.Text+"'");
+
+            }
+            else
+            {
+                GetData("SELECT * FROM pokoje");
+                
+            }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -42,20 +56,48 @@ namespace Rezerwacja_w_hotelu
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            // aktualizacja bazy danych
-            SqlDataAdapter adapter = new SqlDataAdapter();
-      
-
-        }
+        
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-      
+        private void GetData( string command )
+        {
+            try
+            {
+               SqlConnection connect = sql_connection.GetConnection();
+             SqlDataAdapter  adapter = new SqlDataAdapter(command, connect);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                // wyświetlenie tabeli pokoi
+                dataGridView1.DataSource = dt;
+                
+                
+            }
+            catch (SqlException ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.CheckState != CheckState.Checked) numberroom_box.Enabled = false;
+            else numberroom_box.Enabled = true;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //this.Hide();
+            Form4 form = new Form4();
+            form.Show();
+
+        }
+
 
     }
 }
