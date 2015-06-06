@@ -31,19 +31,6 @@ namespace Rezerwacja_w_hotelu
         { // update bazy o wynajęcie pokoju .. // nie apdejtuje lokalnej bazy ..  to pewnie wina nie zdefiniowanego adaptera ??? 
             try
             {
-                //connect = sql_connection.GetConnection();
-                //DataTable dt=new DataTable();
-                //adapter = new SqlDataAdapter("SELECT COUNT(*) FROM uzytkownicy WHERE login='" + Login_box.Text + "'", connect);
-                //SqlCommand cmd = new SqlCommand();
-                //cmd.CommandText = "UPDATE pokoje SET stan_pokoju = 'true', Data_pocz_rezerwacji ='" + fromrez_box.Text + "', Data_kon_rezerwacji='" + Torez_box.Text + "'WHERE numer_pokoju='" + numroom_box.Text + "'";
-                //cmd.Connection = connect;
-                //cmd.Connection.Open();
-                //cmd.ExecuteNonQuery();
-                //cmd.Connection.Close();
-                //adapter.UpdateCommand = cmd;
-                //adapter.Fill(dt);
-                //adapter.Update(dt);
-                //DataGridView.
                 connect = sql_connection.GetConnection();
                 connect.Open();
                 cmd.Connection = connect;
@@ -90,25 +77,41 @@ namespace Rezerwacja_w_hotelu
         {
             //Check login
             connect = sql_connection.GetConnection();
-            adapter = new SqlDataAdapter("SELECT COUNT(*) FROM uzytkownicy WHERE login='"+Login_box.Text+"'",connect);
+            adapter = new SqlDataAdapter("SELECT COUNT(*) FROM uzytkownicy WHERE login='" + Login_box.Text + "'", connect);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 
             if (dt.Rows[0][0].ToString() == "1")
             {
                 Tick_label.Text = "\u2714";//"\u221A";
+                Tick_label.ForeColor = Color.Green;
                 button2.Enabled = true;
             }
             else
             {
-                Tick_label.Text = "";
+                Tick_label.Text = "X";
+                Tick_label.ForeColor = Color.Red;
                 button2.Enabled = false;
             }
         }
-
-        private void Form4_Load(object sender, EventArgs e)
+        private void visible_calendar1(object sender, EventArgs e)
         {
-            
+            monthCalendar1.Visible = true;  
         }
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+             fromrez_box.Text = monthCalendar1.SelectionRange.Start.ToShortDateString();
+             monthCalendar1.Visible = false;
+        }
+        private void visible_calendar2(object sender, EventArgs e)
+        {
+            monthCalendar2.Visible = true;
+        }
+        private void monthCalendar2_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            Torez_box.Text = monthCalendar2.SelectionRange.Start.ToShortDateString();
+            monthCalendar2.Visible = false;
+        }
+
     }
 }

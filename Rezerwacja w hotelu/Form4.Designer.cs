@@ -43,6 +43,8 @@
             this.MakeAcc_button = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.Tick_label = new System.Windows.Forms.Label();
+            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.monthCalendar2 = new System.Windows.Forms.MonthCalendar();
             this.SuspendLayout();
             // 
             // numroom_box
@@ -66,7 +68,8 @@
             this.fromrez_box.Location = new System.Drawing.Point(96, 66);
             this.fromrez_box.Name = "fromrez_box";
             this.fromrez_box.Size = new System.Drawing.Size(100, 20);
-            this.fromrez_box.TabIndex = 2;
+            this.fromrez_box.TabIndex = 26;
+            this.fromrez_box.Click += new System.EventHandler(this.visible_calendar1);
             // 
             // Torez_box
             // 
@@ -74,6 +77,7 @@
             this.Torez_box.Name = "Torez_box";
             this.Torez_box.Size = new System.Drawing.Size(100, 20);
             this.Torez_box.TabIndex = 3;
+            this.Torez_box.Click += new System.EventHandler(this.visible_calendar2);
             // 
             // Login_box
             // 
@@ -132,11 +136,11 @@
             // ExistAcc_rbutton
             // 
             this.ExistAcc_rbutton.AutoSize = true;
+            this.ExistAcc_rbutton.CausesValidation = false;
             this.ExistAcc_rbutton.Location = new System.Drawing.Point(230, 117);
             this.ExistAcc_rbutton.Name = "ExistAcc_rbutton";
             this.ExistAcc_rbutton.Size = new System.Drawing.Size(78, 17);
             this.ExistAcc_rbutton.TabIndex = 18;
-            this.ExistAcc_rbutton.TabStop = true;
             this.ExistAcc_rbutton.Text = "Mam konto";
             this.ExistAcc_rbutton.UseVisualStyleBackColor = true;
             this.ExistAcc_rbutton.CheckedChanged += new System.EventHandler(this.NewAcc_rbutton_CheckedChanged);
@@ -144,6 +148,8 @@
             // NewAcc_rbutton
             // 
             this.NewAcc_rbutton.AutoSize = true;
+            this.NewAcc_rbutton.CausesValidation = false;
+            this.NewAcc_rbutton.Checked = true;
             this.NewAcc_rbutton.Location = new System.Drawing.Point(16, 117);
             this.NewAcc_rbutton.Name = "NewAcc_rbutton";
             this.NewAcc_rbutton.Size = new System.Drawing.Size(96, 17);
@@ -180,11 +186,29 @@
             this.Tick_label.Size = new System.Drawing.Size(31, 18);
             this.Tick_label.TabIndex = 24;
             // 
+            // monthCalendar1
+            // 
+            this.monthCalendar1.Location = new System.Drawing.Point(96, 91);
+            this.monthCalendar1.Name = "monthCalendar1";
+            this.monthCalendar1.TabIndex = 25;
+            this.monthCalendar1.Visible = false;
+            this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
+            // 
+            // monthCalendar2
+            // 
+            this.monthCalendar2.Location = new System.Drawing.Point(253, 91);
+            this.monthCalendar2.Name = "monthCalendar2";
+            this.monthCalendar2.TabIndex = 27;
+            this.monthCalendar2.Visible = false;
+            this.monthCalendar2.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar2_DateChanged);
+            // 
             // Form4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(487, 310);
+            this.Controls.Add(this.monthCalendar2);
+            this.Controls.Add(this.monthCalendar1);
             this.Controls.Add(this.Tick_label);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.MakeAcc_button);
@@ -201,8 +225,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numroom_box);
             this.Name = "Form4";
-            this.Text = "Form4";
-            this.Load += new System.EventHandler(this.Form4_Load);
+            this.Text = "Rezerwacja pokoju";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,10 +243,12 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.RadioButton ExistAcc_rbutton;
-        private System.Windows.Forms.RadioButton NewAcc_rbutton;
         private System.Windows.Forms.Button MakeAcc_button;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label Tick_label;
+        private System.Windows.Forms.RadioButton NewAcc_rbutton;
+        private System.Windows.Forms.RadioButton ExistAcc_rbutton;
+        private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.MonthCalendar monthCalendar2;
     }
 }

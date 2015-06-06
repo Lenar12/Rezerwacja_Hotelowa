@@ -65,18 +65,15 @@ namespace Rezerwacja_w_hotelu
         {
             try
             {
-               SqlConnection connect = sql_connection.GetConnection();
-             SqlDataAdapter  adapter = new SqlDataAdapter(command, connect);
+                SqlConnection connect = sql_connection.GetConnection();
+                SqlDataAdapter  adapter = new SqlDataAdapter(command, connect);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
                 // wyświetlenie tabeli pokoi
-                dataGridView1.DataSource = dt;
-                
-                
+                dataGridView1.DataSource = dt;  
             }
             catch (SqlException ex)
             {
-
                 MessageBox.Show(ex.Message);
             }
 
@@ -95,6 +92,21 @@ namespace Rezerwacja_w_hotelu
             form.Show();
 
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            grid_operation grid = new grid_operation();
+            grid.value_return(dataGridView1);
+            Form3 form = new Form3();
+            form.Show();
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            button1.PerformClick();
+        }
+
+ 
 
 
     }

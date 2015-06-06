@@ -33,6 +33,7 @@ namespace Rezerwacja_w_hotelu
 
         private void accept_button_Click(object sender, EventArgs e)
         {
+            accept_button.TabStop = true;   
             try
             {
                 SqlConnection connect = sql_connection.GetConnection();

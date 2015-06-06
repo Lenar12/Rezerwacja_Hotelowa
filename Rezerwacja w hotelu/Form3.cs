@@ -16,5 +16,11 @@ namespace Rezerwacja_w_hotelu
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            grid_operation grid = new grid_operation();
+            MessageBox.Show(grid.row_value()[1]);
+        }
     }
 }

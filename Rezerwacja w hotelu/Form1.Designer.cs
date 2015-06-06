@@ -73,6 +73,7 @@
             // 
             // accept_button
             // 
+            this.accept_button.AllowDrop = true;
             this.accept_button.Location = new System.Drawing.Point(38, 121);
             this.accept_button.Name = "accept_button";
             this.accept_button.Size = new System.Drawing.Size(75, 23);
@@ -103,7 +104,7 @@
             this.Controls.Add(this.password_label);
             this.Controls.Add(this.login_label);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Login Panel";
             this.Load += new System.EventHandler(this.Form1_Load);
