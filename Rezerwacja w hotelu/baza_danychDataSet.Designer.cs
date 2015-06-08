@@ -28,6 +28,8 @@ namespace Rezerwacja_w_hotelu {
         
         private uzytkownicyDataTable tableuzytkownicy;
         
+        private global::System.Data.DataRelation relationuzytkownicy_pokoje;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -218,6 +220,7 @@ namespace Rezerwacja_w_hotelu {
                     this.tableuzytkownicy.InitVars();
                 }
             }
+            this.relationuzytkownicy_pokoje = this.Relations["uzytkownicy_pokoje"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -232,6 +235,10 @@ namespace Rezerwacja_w_hotelu {
             base.Tables.Add(this.tablepokoje);
             this.tableuzytkownicy = new uzytkownicyDataTable();
             base.Tables.Add(this.tableuzytkownicy);
+            this.relationuzytkownicy_pokoje = new global::System.Data.DataRelation("uzytkownicy_pokoje", new global::System.Data.DataColumn[] {
+                        this.tableuzytkownicy.peselColumn}, new global::System.Data.DataColumn[] {
+                        this.tablepokoje.Uzytkownik_rezerwujacyColumn}, false);
+            this.Relations.Add(this.relationuzytkownicy_pokoje);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -324,6 +331,8 @@ namespace Rezerwacja_w_hotelu {
             
             private global::System.Data.DataColumn columnData_kon_rezerwacji;
             
+            private global::System.Data.DataColumn columnUzytkownik_rezerwujacy;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public pokojeDataTable() {
@@ -399,6 +408,14 @@ namespace Rezerwacja_w_hotelu {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Uzytkownik_rezerwujacyColumn {
+                get {
+                    return this.columnUzytkownik_rezerwujacy;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -434,14 +451,18 @@ namespace Rezerwacja_w_hotelu {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public pokojeRow AddpokojeRow(int numer_pokoju, int ilosc_miejsc, bool stan_pokoju, System.DateTime Data_pocz_rezerwacji, System.DateTime Data_kon_rezerwacji) {
+            public pokojeRow AddpokojeRow(int numer_pokoju, int ilosc_miejsc, bool stan_pokoju, System.DateTime Data_pocz_rezerwacji, System.DateTime Data_kon_rezerwacji, uzytkownicyRow parentuzytkownicyRowByuzytkownicy_pokoje) {
                 pokojeRow rowpokojeRow = ((pokojeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         numer_pokoju,
                         ilosc_miejsc,
                         stan_pokoju,
                         Data_pocz_rezerwacji,
-                        Data_kon_rezerwacji};
+                        Data_kon_rezerwacji,
+                        null};
+                if ((parentuzytkownicyRowByuzytkownicy_pokoje != null)) {
+                    columnValuesArray[5] = parentuzytkownicyRowByuzytkownicy_pokoje[0];
+                }
                 rowpokojeRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowpokojeRow);
                 return rowpokojeRow;
@@ -476,6 +497,7 @@ namespace Rezerwacja_w_hotelu {
                 this.columnstan_pokoju = base.Columns["stan_pokoju"];
                 this.columnData_pocz_rezerwacji = base.Columns["Data_pocz_rezerwacji"];
                 this.columnData_kon_rezerwacji = base.Columns["Data_kon_rezerwacji"];
+                this.columnUzytkownik_rezerwujacy = base.Columns["Uzytkownik_rezerwujacy"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -491,11 +513,14 @@ namespace Rezerwacja_w_hotelu {
                 base.Columns.Add(this.columnData_pocz_rezerwacji);
                 this.columnData_kon_rezerwacji = new global::System.Data.DataColumn("Data_kon_rezerwacji", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnData_kon_rezerwacji);
+                this.columnUzytkownik_rezerwujacy = new global::System.Data.DataColumn("Uzytkownik_rezerwujacy", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUzytkownik_rezerwujacy);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnnumer_pokoju}, true));
                 this.columnnumer_pokoju.AllowDBNull = false;
                 this.columnnumer_pokoju.Unique = true;
                 this.columnilosc_miejsc.AllowDBNull = false;
+                this.columnUzytkownik_rezerwujacy.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -759,7 +784,7 @@ namespace Rezerwacja_w_hotelu {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public uzytkownicyRow AdduzytkownicyRow(int pesel, string imie, string nazwisko, string login, string haslo, int uprawnienia) {
+            public uzytkownicyRow AdduzytkownicyRow(string pesel, string imie, string nazwisko, string login, string haslo, int uprawnienia) {
                 uzytkownicyRow rowuzytkownicyRow = ((uzytkownicyRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         pesel,
@@ -775,7 +800,7 @@ namespace Rezerwacja_w_hotelu {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public uzytkownicyRow FindBypesel(int pesel) {
+            public uzytkownicyRow FindBypesel(string pesel) {
                 return ((uzytkownicyRow)(this.Rows.Find(new object[] {
                             pesel})));
             }
@@ -808,7 +833,7 @@ namespace Rezerwacja_w_hotelu {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnpesel = new global::System.Data.DataColumn("pesel", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnpesel = new global::System.Data.DataColumn("pesel", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnpesel);
                 this.columnimie = new global::System.Data.DataColumn("imie", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnimie);
@@ -824,6 +849,7 @@ namespace Rezerwacja_w_hotelu {
                                 this.columnpesel}, true));
                 this.columnpesel.AllowDBNull = false;
                 this.columnpesel.Unique = true;
+                this.columnpesel.MaxLength = 50;
                 this.columnimie.MaxLength = 50;
                 this.columnnazwisko.MaxLength = 50;
                 this.columnlogin.MaxLength = 50;
@@ -1040,6 +1066,33 @@ namespace Rezerwacja_w_hotelu {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Uzytkownik_rezerwujacy {
+                get {
+                    try {
+                        return ((string)(this[this.tablepokoje.Uzytkownik_rezerwujacyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Uzytkownik_rezerwujacy\' in table \'pokoje\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablepokoje.Uzytkownik_rezerwujacyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public uzytkownicyRow uzytkownicyRow {
+                get {
+                    return ((uzytkownicyRow)(this.GetParentRow(this.Table.ParentRelations["uzytkownicy_pokoje"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["uzytkownicy_pokoje"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Isstan_pokojuNull() {
                 return this.IsNull(this.tablepokoje.stan_pokojuColumn);
             }
@@ -1073,6 +1126,18 @@ namespace Rezerwacja_w_hotelu {
             public void SetData_kon_rezerwacjiNull() {
                 this[this.tablepokoje.Data_kon_rezerwacjiColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsUzytkownik_rezerwujacyNull() {
+                return this.IsNull(this.tablepokoje.Uzytkownik_rezerwujacyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetUzytkownik_rezerwujacyNull() {
+                this[this.tablepokoje.Uzytkownik_rezerwujacyColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -1091,9 +1156,9 @@ namespace Rezerwacja_w_hotelu {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int pesel {
+            public string pesel {
                 get {
-                    return ((int)(this[this.tableuzytkownicy.peselColumn]));
+                    return ((string)(this[this.tableuzytkownicy.peselColumn]));
                 }
                 set {
                     this[this.tableuzytkownicy.peselColumn] = value;
@@ -1238,6 +1303,17 @@ namespace Rezerwacja_w_hotelu {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetuprawnieniaNull() {
                 this[this.tableuzytkownicy.uprawnieniaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public pokojeRow[] GetpokojeRows() {
+                if ((this.Table.ChildRelations["uzytkownicy_pokoje"] == null)) {
+                    return new pokojeRow[0];
+                }
+                else {
+                    return ((pokojeRow[])(base.GetChildRows(this.Table.ChildRelations["uzytkownicy_pokoje"])));
+                }
             }
         }
         
@@ -1439,10 +1515,11 @@ namespace Rezerwacja_w_hotelu.baza_danychDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("stan_pokoju", "stan_pokoju");
             tableMapping.ColumnMappings.Add("Data_pocz_rezerwacji", "Data_pocz_rezerwacji");
             tableMapping.ColumnMappings.Add("Data_kon_rezerwacji", "Data_kon_rezerwacji");
+            tableMapping.ColumnMappings.Add("Uzytkownik_rezerwujacy", "Uzytkownik_rezerwujacy");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[pokoje] WHERE (([numer_pokoju] = @Original_numer_pokoju) AND ([ilosc_miejsc] = @Original_ilosc_miejsc) AND ((@IsNull_stan_pokoju = 1 AND [stan_pokoju] IS NULL) OR ([stan_pokoju] = @Original_stan_pokoju)) AND ((@IsNull_Data_pocz_rezerwacji = 1 AND [Data_pocz_rezerwacji] IS NULL) OR ([Data_pocz_rezerwacji] = @Original_Data_pocz_rezerwacji)) AND ((@IsNull_Data_kon_rezerwacji = 1 AND [Data_kon_rezerwacji] IS NULL) OR ([Data_kon_rezerwacji] = @Original_Data_kon_rezerwacji)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[pokoje] WHERE (([numer_pokoju] = @Original_numer_pokoju) AND ([ilosc_miejsc] = @Original_ilosc_miejsc) AND ((@IsNull_stan_pokoju = 1 AND [stan_pokoju] IS NULL) OR ([stan_pokoju] = @Original_stan_pokoju)) AND ((@IsNull_Data_pocz_rezerwacji = 1 AND [Data_pocz_rezerwacji] IS NULL) OR ([Data_pocz_rezerwacji] = @Original_Data_pocz_rezerwacji)) AND ((@IsNull_Data_kon_rezerwacji = 1 AND [Data_kon_rezerwacji] IS NULL) OR ([Data_kon_rezerwacji] = @Original_Data_kon_rezerwacji)) AND ((@IsNull_Uzytkownik_rezerwujacy = 1 AND [Uzytkownik_rezerwujacy] IS NULL) OR ([Uzytkownik_rezerwujacy] = @Original_Uzytkownik_rezerwujacy)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_numer_pokoju", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "numer_pokoju", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ilosc_miejsc", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ilosc_miejsc", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -1452,26 +1529,30 @@ namespace Rezerwacja_w_hotelu.baza_danychDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Data_pocz_rezerwacji", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Data_pocz_rezerwacji", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Data_kon_rezerwacji", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Data_kon_rezerwacji", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Data_kon_rezerwacji", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Data_kon_rezerwacji", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Uzytkownik_rezerwujacy", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Uzytkownik_rezerwujacy", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Uzytkownik_rezerwujacy", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Uzytkownik_rezerwujacy", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[pokoje] ([numer_pokoju], [ilosc_miejsc], [stan_pokoju], [Data_pocz_rezerwacji], [Data_kon_rezerwacji]) VALUES (@numer_pokoju, @ilosc_miejsc, @stan_pokoju, @Data_pocz_rezerwacji, @Data_kon_rezerwacji);
-SELECT numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_rezerwacji FROM pokoje WHERE (numer_pokoju = @numer_pokoju)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[pokoje] ([numer_pokoju], [ilosc_miejsc], [stan_pokoju], [Data_pocz_rezerwacji], [Data_kon_rezerwacji], [Uzytkownik_rezerwujacy]) VALUES (@numer_pokoju, @ilosc_miejsc, @stan_pokoju, @Data_pocz_rezerwacji, @Data_kon_rezerwacji, @Uzytkownik_rezerwujacy);
+SELECT numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_rezerwacji, Uzytkownik_rezerwujacy FROM pokoje WHERE (numer_pokoju = @numer_pokoju)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@numer_pokoju", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "numer_pokoju", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ilosc_miejsc", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ilosc_miejsc", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@stan_pokoju", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "stan_pokoju", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Data_pocz_rezerwacji", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Data_pocz_rezerwacji", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Data_kon_rezerwacji", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Data_kon_rezerwacji", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Uzytkownik_rezerwujacy", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Uzytkownik_rezerwujacy", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[pokoje] SET [numer_pokoju] = @numer_pokoju, [ilosc_miejsc] = @ilosc_miejsc, [stan_pokoju] = @stan_pokoju, [Data_pocz_rezerwacji] = @Data_pocz_rezerwacji, [Data_kon_rezerwacji] = @Data_kon_rezerwacji WHERE (([numer_pokoju] = @Original_numer_pokoju) AND ([ilosc_miejsc] = @Original_ilosc_miejsc) AND ((@IsNull_stan_pokoju = 1 AND [stan_pokoju] IS NULL) OR ([stan_pokoju] = @Original_stan_pokoju)) AND ((@IsNull_Data_pocz_rezerwacji = 1 AND [Data_pocz_rezerwacji] IS NULL) OR ([Data_pocz_rezerwacji] = @Original_Data_pocz_rezerwacji)) AND ((@IsNull_Data_kon_rezerwacji = 1 AND [Data_kon_rezerwacji] IS NULL) OR ([Data_kon_rezerwacji] = @Original_Data_kon_rezerwacji)));
-SELECT numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_rezerwacji FROM pokoje WHERE (numer_pokoju = @numer_pokoju)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[pokoje] SET [numer_pokoju] = @numer_pokoju, [ilosc_miejsc] = @ilosc_miejsc, [stan_pokoju] = @stan_pokoju, [Data_pocz_rezerwacji] = @Data_pocz_rezerwacji, [Data_kon_rezerwacji] = @Data_kon_rezerwacji, [Uzytkownik_rezerwujacy] = @Uzytkownik_rezerwujacy WHERE (([numer_pokoju] = @Original_numer_pokoju) AND ([ilosc_miejsc] = @Original_ilosc_miejsc) AND ((@IsNull_stan_pokoju = 1 AND [stan_pokoju] IS NULL) OR ([stan_pokoju] = @Original_stan_pokoju)) AND ((@IsNull_Data_pocz_rezerwacji = 1 AND [Data_pocz_rezerwacji] IS NULL) OR ([Data_pocz_rezerwacji] = @Original_Data_pocz_rezerwacji)) AND ((@IsNull_Data_kon_rezerwacji = 1 AND [Data_kon_rezerwacji] IS NULL) OR ([Data_kon_rezerwacji] = @Original_Data_kon_rezerwacji)) AND ((@IsNull_Uzytkownik_rezerwujacy = 1 AND [Uzytkownik_rezerwujacy] IS NULL) OR ([Uzytkownik_rezerwujacy] = @Original_Uzytkownik_rezerwujacy)));
+SELECT numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_rezerwacji, Uzytkownik_rezerwujacy FROM pokoje WHERE (numer_pokoju = @numer_pokoju)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@numer_pokoju", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "numer_pokoju", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ilosc_miejsc", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ilosc_miejsc", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@stan_pokoju", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "stan_pokoju", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Data_pocz_rezerwacji", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Data_pocz_rezerwacji", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Data_kon_rezerwacji", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Data_kon_rezerwacji", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Uzytkownik_rezerwujacy", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Uzytkownik_rezerwujacy", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_numer_pokoju", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "numer_pokoju", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ilosc_miejsc", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ilosc_miejsc", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_stan_pokoju", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "stan_pokoju", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -1480,6 +1561,8 @@ SELECT numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_r
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Data_pocz_rezerwacji", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Data_pocz_rezerwacji", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Data_kon_rezerwacji", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Data_kon_rezerwacji", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Data_kon_rezerwacji", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Data_kon_rezerwacji", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Uzytkownik_rezerwujacy", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Uzytkownik_rezerwujacy", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Uzytkownik_rezerwujacy", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Uzytkownik_rezerwujacy", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1496,7 +1579,7 @@ SELECT numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_r
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_re" +
-                "zerwacji FROM dbo.pokoje";
+                "zerwacji, Uzytkownik_rezerwujacy FROM dbo.pokoje";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -1557,7 +1640,7 @@ SELECT numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_r
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_numer_pokoju, int Original_ilosc_miejsc, global::System.Nullable<bool> Original_stan_pokoju, global::System.Nullable<global::System.DateTime> Original_Data_pocz_rezerwacji, global::System.Nullable<global::System.DateTime> Original_Data_kon_rezerwacji) {
+        public virtual int Delete(int Original_numer_pokoju, int Original_ilosc_miejsc, global::System.Nullable<bool> Original_stan_pokoju, global::System.Nullable<global::System.DateTime> Original_Data_pocz_rezerwacji, global::System.Nullable<global::System.DateTime> Original_Data_kon_rezerwacji, string Original_Uzytkownik_rezerwujacy) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_numer_pokoju));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_ilosc_miejsc));
             if ((Original_stan_pokoju.HasValue == true)) {
@@ -1584,6 +1667,14 @@ SELECT numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_r
                 this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
+            if ((Original_Uzytkownik_rezerwujacy == null)) {
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((string)(Original_Uzytkownik_rezerwujacy));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1604,7 +1695,7 @@ SELECT numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_r
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int numer_pokoju, int ilosc_miejsc, global::System.Nullable<bool> stan_pokoju, global::System.Nullable<global::System.DateTime> Data_pocz_rezerwacji, global::System.Nullable<global::System.DateTime> Data_kon_rezerwacji) {
+        public virtual int Insert(int numer_pokoju, int ilosc_miejsc, global::System.Nullable<bool> stan_pokoju, global::System.Nullable<global::System.DateTime> Data_pocz_rezerwacji, global::System.Nullable<global::System.DateTime> Data_kon_rezerwacji, string Uzytkownik_rezerwujacy) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(numer_pokoju));
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(ilosc_miejsc));
             if ((stan_pokoju.HasValue == true)) {
@@ -1624,6 +1715,12 @@ SELECT numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_r
             }
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((Uzytkownik_rezerwujacy == null)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(Uzytkownik_rezerwujacy));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -1645,7 +1742,7 @@ SELECT numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_r
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int numer_pokoju, int ilosc_miejsc, global::System.Nullable<bool> stan_pokoju, global::System.Nullable<global::System.DateTime> Data_pocz_rezerwacji, global::System.Nullable<global::System.DateTime> Data_kon_rezerwacji, int Original_numer_pokoju, int Original_ilosc_miejsc, global::System.Nullable<bool> Original_stan_pokoju, global::System.Nullable<global::System.DateTime> Original_Data_pocz_rezerwacji, global::System.Nullable<global::System.DateTime> Original_Data_kon_rezerwacji) {
+        public virtual int Update(int numer_pokoju, int ilosc_miejsc, global::System.Nullable<bool> stan_pokoju, global::System.Nullable<global::System.DateTime> Data_pocz_rezerwacji, global::System.Nullable<global::System.DateTime> Data_kon_rezerwacji, string Uzytkownik_rezerwujacy, int Original_numer_pokoju, int Original_ilosc_miejsc, global::System.Nullable<bool> Original_stan_pokoju, global::System.Nullable<global::System.DateTime> Original_Data_pocz_rezerwacji, global::System.Nullable<global::System.DateTime> Original_Data_kon_rezerwacji, string Original_Uzytkownik_rezerwujacy) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(numer_pokoju));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(ilosc_miejsc));
             if ((stan_pokoju.HasValue == true)) {
@@ -1666,31 +1763,45 @@ SELECT numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_r
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_numer_pokoju));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_ilosc_miejsc));
-            if ((Original_stan_pokoju.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((bool)(Original_stan_pokoju.Value));
+            if ((Uzytkownik_rezerwujacy == null)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Uzytkownik_rezerwujacy));
+            }
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_numer_pokoju));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_ilosc_miejsc));
+            if ((Original_stan_pokoju.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((bool)(Original_stan_pokoju.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             if ((Original_Data_pocz_rezerwacji.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((System.DateTime)(Original_Data_pocz_rezerwacji.Value));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((System.DateTime)(Original_Data_pocz_rezerwacji.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
             if ((Original_Data_kon_rezerwacji.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((System.DateTime)(Original_Data_kon_rezerwacji.Value));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((System.DateTime)(Original_Data_kon_rezerwacji.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
+            }
+            if ((Original_Uzytkownik_rezerwujacy == null)) {
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((string)(Original_Uzytkownik_rezerwujacy));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -1712,8 +1823,8 @@ SELECT numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_r
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int ilosc_miejsc, global::System.Nullable<bool> stan_pokoju, global::System.Nullable<global::System.DateTime> Data_pocz_rezerwacji, global::System.Nullable<global::System.DateTime> Data_kon_rezerwacji, int Original_numer_pokoju, int Original_ilosc_miejsc, global::System.Nullable<bool> Original_stan_pokoju, global::System.Nullable<global::System.DateTime> Original_Data_pocz_rezerwacji, global::System.Nullable<global::System.DateTime> Original_Data_kon_rezerwacji) {
-            return this.Update(Original_numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_rezerwacji, Original_numer_pokoju, Original_ilosc_miejsc, Original_stan_pokoju, Original_Data_pocz_rezerwacji, Original_Data_kon_rezerwacji);
+        public virtual int Update(int ilosc_miejsc, global::System.Nullable<bool> stan_pokoju, global::System.Nullable<global::System.DateTime> Data_pocz_rezerwacji, global::System.Nullable<global::System.DateTime> Data_kon_rezerwacji, string Uzytkownik_rezerwujacy, int Original_numer_pokoju, int Original_ilosc_miejsc, global::System.Nullable<bool> Original_stan_pokoju, global::System.Nullable<global::System.DateTime> Original_Data_pocz_rezerwacji, global::System.Nullable<global::System.DateTime> Original_Data_kon_rezerwacji, string Original_Uzytkownik_rezerwujacy) {
+            return this.Update(Original_numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_rezerwacji, Uzytkownik_rezerwujacy, Original_numer_pokoju, Original_ilosc_miejsc, Original_stan_pokoju, Original_Data_pocz_rezerwacji, Original_Data_kon_rezerwacji, Original_Uzytkownik_rezerwujacy);
         }
     }
     
@@ -1849,7 +1960,7 @@ SELECT numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_r
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[uzytkownicy] WHERE (([pesel] = @Original_pesel) AND ((@IsNull_imie = 1 AND [imie] IS NULL) OR ([imie] = @Original_imie)) AND ((@IsNull_nazwisko = 1 AND [nazwisko] IS NULL) OR ([nazwisko] = @Original_nazwisko)) AND ((@IsNull_login = 1 AND [login] IS NULL) OR ([login] = @Original_login)) AND ((@IsNull_haslo = 1 AND [haslo] IS NULL) OR ([haslo] = @Original_haslo)) AND ((@IsNull_uprawnienia = 1 AND [uprawnienia] IS NULL) OR ([uprawnienia] = @Original_uprawnienia)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_pesel", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "pesel", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_pesel", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "pesel", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_imie", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "imie", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_imie", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "imie", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_nazwisko", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "nazwisko", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -1865,7 +1976,7 @@ SELECT numer_pokoju, ilosc_miejsc, stan_pokoju, Data_pocz_rezerwacji, Data_kon_r
             this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[uzytkownicy] ([pesel], [imie], [nazwisko], [login], [haslo], [uprawnienia]) VALUES (@pesel, @imie, @nazwisko, @login, @haslo, @uprawnienia);
 SELECT pesel, imie, nazwisko, login, haslo, uprawnienia FROM uzytkownicy WHERE (pesel = @pesel)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@pesel", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "pesel", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@pesel", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "pesel", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@imie", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "imie", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@nazwisko", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "nazwisko", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@login", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "login", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1876,13 +1987,13 @@ SELECT pesel, imie, nazwisko, login, haslo, uprawnienia FROM uzytkownicy WHERE (
             this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[uzytkownicy] SET [pesel] = @pesel, [imie] = @imie, [nazwisko] = @nazwisko, [login] = @login, [haslo] = @haslo, [uprawnienia] = @uprawnienia WHERE (([pesel] = @Original_pesel) AND ((@IsNull_imie = 1 AND [imie] IS NULL) OR ([imie] = @Original_imie)) AND ((@IsNull_nazwisko = 1 AND [nazwisko] IS NULL) OR ([nazwisko] = @Original_nazwisko)) AND ((@IsNull_login = 1 AND [login] IS NULL) OR ([login] = @Original_login)) AND ((@IsNull_haslo = 1 AND [haslo] IS NULL) OR ([haslo] = @Original_haslo)) AND ((@IsNull_uprawnienia = 1 AND [uprawnienia] IS NULL) OR ([uprawnienia] = @Original_uprawnienia)));
 SELECT pesel, imie, nazwisko, login, haslo, uprawnienia FROM uzytkownicy WHERE (pesel = @pesel)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@pesel", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "pesel", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@pesel", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "pesel", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@imie", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "imie", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@nazwisko", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "nazwisko", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@login", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "login", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@haslo", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "haslo", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@uprawnienia", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "uprawnienia", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_pesel", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "pesel", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_pesel", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "pesel", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_imie", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "imie", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_imie", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "imie", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_nazwisko", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "nazwisko", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -1969,8 +2080,13 @@ SELECT pesel, imie, nazwisko, login, haslo, uprawnienia FROM uzytkownicy WHERE (
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_pesel, string Original_imie, string Original_nazwisko, string Original_login, string Original_haslo, global::System.Nullable<int> Original_uprawnienia) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_pesel));
+        public virtual int Delete(string Original_pesel, string Original_imie, string Original_nazwisko, string Original_login, string Original_haslo, global::System.Nullable<int> Original_uprawnienia) {
+            if ((Original_pesel == null)) {
+                throw new global::System.ArgumentNullException("Original_pesel");
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[0].Value = ((string)(Original_pesel));
+            }
             if ((Original_imie == null)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
@@ -2031,8 +2147,13 @@ SELECT pesel, imie, nazwisko, login, haslo, uprawnienia FROM uzytkownicy WHERE (
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int pesel, string imie, string nazwisko, string login, string haslo, global::System.Nullable<int> uprawnienia) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(pesel));
+        public virtual int Insert(string pesel, string imie, string nazwisko, string login, string haslo, global::System.Nullable<int> uprawnienia) {
+            if ((pesel == null)) {
+                throw new global::System.ArgumentNullException("pesel");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(pesel));
+            }
             if ((imie == null)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
@@ -2083,8 +2204,13 @@ SELECT pesel, imie, nazwisko, login, haslo, uprawnienia FROM uzytkownicy WHERE (
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int pesel, string imie, string nazwisko, string login, string haslo, global::System.Nullable<int> uprawnienia, int Original_pesel, string Original_imie, string Original_nazwisko, string Original_login, string Original_haslo, global::System.Nullable<int> Original_uprawnienia) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(pesel));
+        public virtual int Update(string pesel, string imie, string nazwisko, string login, string haslo, global::System.Nullable<int> uprawnienia, string Original_pesel, string Original_imie, string Original_nazwisko, string Original_login, string Original_haslo, global::System.Nullable<int> Original_uprawnienia) {
+            if ((pesel == null)) {
+                throw new global::System.ArgumentNullException("pesel");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(pesel));
+            }
             if ((imie == null)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
@@ -2115,7 +2241,12 @@ SELECT pesel, imie, nazwisko, login, haslo, uprawnienia FROM uzytkownicy WHERE (
             else {
                 this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_pesel));
+            if ((Original_pesel == null)) {
+                throw new global::System.ArgumentNullException("Original_pesel");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_pesel));
+            }
             if ((Original_imie == null)) {
                 this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
@@ -2176,7 +2307,7 @@ SELECT pesel, imie, nazwisko, login, haslo, uprawnienia FROM uzytkownicy WHERE (
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string imie, string nazwisko, string login, string haslo, global::System.Nullable<int> uprawnienia, int Original_pesel, string Original_imie, string Original_nazwisko, string Original_login, string Original_haslo, global::System.Nullable<int> Original_uprawnienia) {
+        public virtual int Update(string imie, string nazwisko, string login, string haslo, global::System.Nullable<int> uprawnienia, string Original_pesel, string Original_imie, string Original_nazwisko, string Original_login, string Original_haslo, global::System.Nullable<int> Original_uprawnienia) {
             return this.Update(Original_pesel, imie, nazwisko, login, haslo, uprawnienia, Original_pesel, Original_imie, Original_nazwisko, Original_login, Original_haslo, Original_uprawnienia);
         }
     }
@@ -2297,21 +2428,21 @@ SELECT pesel, imie, nazwisko, login, haslo, uprawnienia FROM uzytkownicy WHERE (
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateUpdatedRows(baza_danychDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._pokojeTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.pokoje.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._pokojeTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._uzytkownicyTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.uzytkownicy.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._uzytkownicyTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._pokojeTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.pokoje.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._pokojeTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -2325,19 +2456,19 @@ SELECT pesel, imie, nazwisko, login, haslo, uprawnienia FROM uzytkownicy WHERE (
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateInsertedRows(baza_danychDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._pokojeTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.pokoje.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._pokojeTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._uzytkownicyTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.uzytkownicy.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._uzytkownicyTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._pokojeTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.pokoje.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._pokojeTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -2351,19 +2482,19 @@ SELECT pesel, imie, nazwisko, login, haslo, uprawnienia FROM uzytkownicy WHERE (
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateDeletedRows(baza_danychDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._uzytkownicyTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.uzytkownicy.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._uzytkownicyTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._pokojeTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.pokoje.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._pokojeTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._uzytkownicyTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.uzytkownicy.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._uzytkownicyTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }

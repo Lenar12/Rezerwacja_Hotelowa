@@ -34,7 +34,7 @@ namespace Rezerwacja_w_hotelu
                 connect = sql_connection.GetConnection();
                 connect.Open();
                 cmd.Connection = connect;
-                cmd.CommandText = "UPDATE pokoje SET stan_pokoju = 'true', Data_pocz_rezerwacji ='" + fromrez_box.Text + "', Data_kon_rezerwacji='" + Torez_box.Text + "'WHERE numer_pokoju='" + numroom_box.Text + "'";
+                cmd.CommandText = "UPDATE pokoje SET stan_pokoju = 'true', Data_pocz_rezerwacji ='" + fromrez_box.Text + "', Data_kon_rezerwacji='" + Torez_box.Text + "', Uzytkownik_rezerwujacy='" + Login_box.Text + "'WHERE numer_pokoju='" + numroom_box.Text + "'";
                 cmd.ExecuteNonQuery();
                 connect.Close();
 
@@ -111,6 +111,11 @@ namespace Rezerwacja_w_hotelu
         {
             Torez_box.Text = monthCalendar2.SelectionRange.Start.ToShortDateString();
             monthCalendar2.Visible = false;
+        }
+
+        private void Login_box_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
     }
