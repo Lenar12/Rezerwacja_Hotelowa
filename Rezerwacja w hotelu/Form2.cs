@@ -13,18 +13,22 @@ using System.Data.SqlClient;
 namespace Rezerwacja_w_hotelu
 { 
     public partial class Form2 : Form
-    { 
+    {
+        
         public Form2()
         {
             InitializeComponent();
             numberroom_box.Enabled = false;
         }
+     
+
         private void button1_Click(object sender, EventArgs e)
         {
             update_database();   
         }
         public void update_database()
         {
+
             if ((checkBox1.CheckState == CheckState.Checked) && (checkBox2.CheckState == CheckState.Checked))
             {
                 GetData("SELECT * FROM pokoje where ilosc_miejsc = '" + numberroom_box.Text + "' AND stan_pokoju = 'false'");
@@ -38,11 +42,25 @@ namespace Rezerwacja_w_hotelu
             {
 
                 GetData("SELECT * FROM pokoje where ilosc_miejsc = '" + numberroom_box.Text + "'");
+
             }
             else
             {
                 GetData("SELECT * FROM pokoje");
+
             }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void GetData( string command )
@@ -91,6 +109,9 @@ namespace Rezerwacja_w_hotelu
         {
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
+            // TODO: This line of code loads data into the 'baza_danychDataSet.pokoje' table. You can move, or remove it, as needed.
+            //this.pokojeTableAdapter.Fill(this.baza_danychDataSet.pokoje);
+            // TODO: This line of code loads data into the 'baza_danychDataSet.uzytkownicy' table. You can move, or remove it, as needed.
             this.uzytkownicyTableAdapter.Fill(this.baza_danychDataSet.uzytkownicy);
             button1.PerformClick();
         }
@@ -123,6 +144,14 @@ namespace Rezerwacja_w_hotelu
             dataGridView2.EndEdit();
             dataGridView2.Parent.Refresh();
             dataGridView2.Refresh();
+            
         }
+
+
+        
+
+ 
+
+
     }
 }
