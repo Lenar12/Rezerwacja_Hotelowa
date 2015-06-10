@@ -20,8 +20,6 @@ namespace Rezerwacja_w_hotelu
             InitializeComponent();
             numberroom_box.Enabled = false;
         }
-
-
      
 
         private void button1_Click(object sender, EventArgs e)
