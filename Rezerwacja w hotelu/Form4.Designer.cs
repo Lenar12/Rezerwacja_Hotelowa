@@ -85,6 +85,7 @@
             this.Login_box.Name = "Login_box";
             this.Login_box.Size = new System.Drawing.Size(100, 20);
             this.Login_box.TabIndex = 7;
+            this.Login_box.TextChanged += new System.EventHandler(this.Login_box_TextChanged);
             // 
             // label2
             // 
@@ -196,7 +197,7 @@
             // 
             // monthCalendar2
             // 
-            this.monthCalendar2.Location = new System.Drawing.Point(253, 91);
+            this.monthCalendar2.Location = new System.Drawing.Point(271, 91);
             this.monthCalendar2.Name = "monthCalendar2";
             this.monthCalendar2.TabIndex = 27;
             this.monthCalendar2.Visible = false;
