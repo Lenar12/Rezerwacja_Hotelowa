@@ -42,7 +42,8 @@ namespace Rezerwacja_w_hotelu
             command.ExecuteNonQuery();
             command.Connection.Close();
 
-                MessageBox.Show("Uzytkownik" + Imie_box.Text + " " + Nazwisko_box + " zarejstrowany pomyślnie");
+                MessageBox.Show("Uzytkownik "+Login_box.Text+" zarejstrowany pomyślnie");
+                this.Hide();
             }
             catch( SqlException ex)
             {

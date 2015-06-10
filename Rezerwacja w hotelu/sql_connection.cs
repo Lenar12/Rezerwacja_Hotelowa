@@ -8,10 +8,24 @@ using System.Windows.Forms;
 
 namespace Rezerwacja_w_hotelu
 {
-    public static class sql_connection
+    public class sql_connection
     {
+        private static sql_connection instance;
+        private sql_connection() {}
+        public static sql_connection Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new sql_connection();
+                }
+                return instance;
+            }
+        }
         public static SqlConnection GetConnection()
         {
+           
             String connStr = @"Data Source=(LocalDB)\v11.0;";
             connStr += @"AttachDBfilename=""|DataDirectory|\baza_danych.mdf"";";
             connStr += @"Integrated Security=True";

@@ -13,9 +13,9 @@ namespace Rezerwacja_w_hotelu
 {
     public partial class Form1 : Form
     {
-        SqlConnection connect;
-        SqlDataAdapter adapter;
-        DataTable dt;
+        //SqlConnection connect;
+        //SqlDataAdapter adapter;
+        //DataTable dt;
         public Form1()
         {
             InitializeComponent();
