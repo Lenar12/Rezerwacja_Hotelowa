@@ -94,6 +94,7 @@ namespace Rezerwacja_w_hotelu
                 button2.Enabled = false;
             }
         }
+
         private void visible_calendar1(object sender, EventArgs e)
         {
             monthCalendar1.Visible = true;  
