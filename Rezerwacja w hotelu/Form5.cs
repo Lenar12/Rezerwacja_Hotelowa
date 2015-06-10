@@ -50,6 +50,11 @@ namespace Rezerwacja_w_hotelu
             }
         }
 
+        private void Cancel_button_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
 
     }
 }

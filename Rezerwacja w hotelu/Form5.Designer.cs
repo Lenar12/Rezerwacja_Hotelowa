@@ -122,6 +122,7 @@
             this.Cancel_button.TabIndex = 9;
             this.Cancel_button.Text = "Anuluj";
             this.Cancel_button.UseVisualStyleBackColor = true;
+            this.Cancel_button.Click += new System.EventHandler(this.Cancel_button_Click);
             // 
             // Form5
             // 
