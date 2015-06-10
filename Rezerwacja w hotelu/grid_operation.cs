@@ -10,11 +10,12 @@ namespace Rezerwacja_w_hotelu
     public class grid_operation
     {
         public static string[] row = new string[100];
+        public static int size_row=0;
         public string[] value_return(DataGridView grid)
         {
-            
+            size_row = grid.RowCount+1;
             int i = 0;
-            for(i=0;i<=(int)grid.RowCount;i++)
+            for(i=0;i<=size_row;i++)
             {
                 row[i] = grid.CurrentRow.Cells[i].Value.ToString();
             }    
@@ -23,6 +24,10 @@ namespace Rezerwacja_w_hotelu
         public string[] row_value()
         {
             return row;
+        }
+        public int row_count()
+        {
+            return size_row;
         }
 
     }
