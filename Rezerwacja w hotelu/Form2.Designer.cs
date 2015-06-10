@@ -40,25 +40,12 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button4 = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.peselDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.imieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nazwiskoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.loginDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hasloDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.uprawnieniaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.uzytkownicyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.baza_danychDataSet = new Rezerwacja_w_hotelu.baza_danychDataSet();
             this.uzytkownicyTableAdapter = new Rezerwacja_w_hotelu.baza_danychDataSetTableAdapters.uzytkownicyTableAdapter();
-            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uzytkownicyBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.baza_danychDataSet)).BeginInit();
             this.SuspendLayout();
@@ -74,7 +61,6 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(722, 193);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // checkBox1
             // 
@@ -85,7 +71,6 @@
             this.checkBox1.TabIndex = 1;
             this.checkBox1.Text = "wolne pokoje";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // checkBox2
             // 
@@ -147,7 +132,6 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(1, 1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -183,102 +167,6 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.button7);
-            this.tabPage2.Controls.Add(this.button6);
-            this.tabPage2.Controls.Add(this.button5);
-            this.tabPage2.Controls.Add(this.dataGridView2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(740, 362);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Użytkownicy";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(218, 307);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(174, 41);
-            this.button6.TabIndex = 2;
-            this.button6.Text = "Usuń użytkownika";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(24, 307);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(174, 41);
-            this.button5.TabIndex = 1;
-            this.button5.Text = "Nowy użytkownik";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.AllowUserToAddRows = false;
-            this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.AutoGenerateColumns = false;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.peselDataGridViewTextBoxColumn,
-            this.imieDataGridViewTextBoxColumn,
-            this.nazwiskoDataGridViewTextBoxColumn,
-            this.loginDataGridViewTextBoxColumn,
-            this.hasloDataGridViewTextBoxColumn,
-            this.uprawnieniaDataGridViewTextBoxColumn});
-            this.dataGridView2.DataSource = this.uzytkownicyBindingSource;
-            this.dataGridView2.Location = new System.Drawing.Point(4, 4);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.ReadOnly = true;
-            this.dataGridView2.Size = new System.Drawing.Size(735, 285);
-            this.dataGridView2.TabIndex = 0;
-            // 
-            // peselDataGridViewTextBoxColumn
-            // 
-            this.peselDataGridViewTextBoxColumn.DataPropertyName = "pesel";
-            this.peselDataGridViewTextBoxColumn.HeaderText = "pesel";
-            this.peselDataGridViewTextBoxColumn.Name = "peselDataGridViewTextBoxColumn";
-            this.peselDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // imieDataGridViewTextBoxColumn
-            // 
-            this.imieDataGridViewTextBoxColumn.DataPropertyName = "imie";
-            this.imieDataGridViewTextBoxColumn.HeaderText = "imie";
-            this.imieDataGridViewTextBoxColumn.Name = "imieDataGridViewTextBoxColumn";
-            this.imieDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // nazwiskoDataGridViewTextBoxColumn
-            // 
-            this.nazwiskoDataGridViewTextBoxColumn.DataPropertyName = "nazwisko";
-            this.nazwiskoDataGridViewTextBoxColumn.HeaderText = "nazwisko";
-            this.nazwiskoDataGridViewTextBoxColumn.Name = "nazwiskoDataGridViewTextBoxColumn";
-            this.nazwiskoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // loginDataGridViewTextBoxColumn
-            // 
-            this.loginDataGridViewTextBoxColumn.DataPropertyName = "login";
-            this.loginDataGridViewTextBoxColumn.HeaderText = "login";
-            this.loginDataGridViewTextBoxColumn.Name = "loginDataGridViewTextBoxColumn";
-            this.loginDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // hasloDataGridViewTextBoxColumn
-            // 
-            this.hasloDataGridViewTextBoxColumn.DataPropertyName = "haslo";
-            this.hasloDataGridViewTextBoxColumn.HeaderText = "haslo";
-            this.hasloDataGridViewTextBoxColumn.Name = "hasloDataGridViewTextBoxColumn";
-            this.hasloDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // uprawnieniaDataGridViewTextBoxColumn
-            // 
-            this.uprawnieniaDataGridViewTextBoxColumn.DataPropertyName = "uprawnienia";
-            this.uprawnieniaDataGridViewTextBoxColumn.HeaderText = "uprawnienia";
-            this.uprawnieniaDataGridViewTextBoxColumn.Name = "uprawnieniaDataGridViewTextBoxColumn";
-            this.uprawnieniaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // uzytkownicyBindingSource
             // 
             this.uzytkownicyBindingSource.DataMember = "uzytkownicy";
@@ -292,16 +180,6 @@
             // uzytkownicyTableAdapter
             // 
             this.uzytkownicyTableAdapter.ClearBeforeFill = true;
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(454, 319);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 3;
-            this.button7.Text = "button7";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // Form2
             // 
@@ -318,8 +196,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.uzytkownicyBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.baza_danychDataSet)).EndInit();
             this.ResumeLayout(false);
@@ -338,21 +214,10 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private baza_danychDataSet baza_danychDataSet;
         private System.Windows.Forms.BindingSource uzytkownicyBindingSource;
         private baza_danychDataSetTableAdapters.uzytkownicyTableAdapter uzytkownicyTableAdapter;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn peselDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn imieDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nazwiskoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn loginDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hasloDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn uprawnieniaDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button7;
 
 
     }
