@@ -70,6 +70,7 @@
             this.fromrez_box.Size = new System.Drawing.Size(100, 20);
             this.fromrez_box.TabIndex = 26;
             this.fromrez_box.Click += new System.EventHandler(this.visible_calendar1);
+            this.fromrez_box.TextChanged += new System.EventHandler(this.fromrez_box_TextChanged);
             // 
             // Torez_box
             // 
@@ -197,7 +198,7 @@
             // 
             // monthCalendar2
             // 
-            this.monthCalendar2.Location = new System.Drawing.Point(271, 91);
+            this.monthCalendar2.Location = new System.Drawing.Point(253, 91);
             this.monthCalendar2.Name = "monthCalendar2";
             this.monthCalendar2.TabIndex = 27;
             this.monthCalendar2.Visible = false;

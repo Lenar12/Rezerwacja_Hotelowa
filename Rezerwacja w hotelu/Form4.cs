@@ -12,6 +12,7 @@ namespace Rezerwacja_w_hotelu
 {
     public partial class Form4 : Form
     {
+        public Form2 form;
         SqlConnection connect = new SqlConnection();
         SqlDataAdapter adapter = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
@@ -21,8 +22,10 @@ namespace Rezerwacja_w_hotelu
             InitializeComponent();
             //NewAcc_rbutton.Checked = false;
             //ExistAcc_rbutton.Enabled = true;
+            fromrez_box.Text = (DateTime.Today).ToString().Substring(0,10);
             button2.Enabled = false;
-            Login_box.Enabled = MakeAcc_button.Enabled = false;
+            Login_box.Enabled = false;
+
         }
 
        
@@ -30,8 +33,9 @@ namespace Rezerwacja_w_hotelu
         private void button2_Click(object sender, EventArgs e)
         { // update bazy o wynajęcie pokoju .. // nie apdejtuje lokalnej bazy ..  to pewnie wina nie zdefiniowanego adaptera ??? 
             try
-            {
+            {      
                 connect = sql_connection.GetConnection();
+                
                 connect.Open();
                 cmd.Connection = connect;
                 cmd.CommandText = "UPDATE pokoje SET stan_pokoju = 'true', Data_pocz_rezerwacji ='" + fromrez_box.Text + "', Data_kon_rezerwacji='" + Torez_box.Text + "', Uzytkownik_rezerwujacy='" + Login_box.Text + "'WHERE numer_pokoju='" + numroom_box.Text + "'";
@@ -39,7 +43,7 @@ namespace Rezerwacja_w_hotelu
                 connect.Close();
 
                 MessageBox.Show("Pokój numer " + numroom_box.Text + " zarezerwowany pomyślnie");
-                
+                form.update_database();
                 this.Hide();
             }
             catch (SqlException ex)
@@ -115,6 +119,11 @@ namespace Rezerwacja_w_hotelu
         }
 
         private void Login_box_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fromrez_box_TextChanged(object sender, EventArgs e)
         {
 
         }

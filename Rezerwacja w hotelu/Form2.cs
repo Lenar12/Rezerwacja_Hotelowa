@@ -26,7 +26,11 @@ namespace Rezerwacja_w_hotelu
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
+            update_database();   
+        }
+        public void update_database()
+        {
+
             if ((checkBox1.CheckState == CheckState.Checked) && (checkBox2.CheckState == CheckState.Checked))
             {
                 GetData("SELECT * FROM pokoje where ilosc_miejsc = '" + numberroom_box.Text + "' AND stan_pokoju = 'false'");
@@ -39,13 +43,13 @@ namespace Rezerwacja_w_hotelu
             else if (checkBox2.CheckState == CheckState.Checked)
             {
 
-                GetData("SELECT * FROM pokoje where ilosc_miejsc = '"+numberroom_box.Text+"'");
+                GetData("SELECT * FROM pokoje where ilosc_miejsc = '" + numberroom_box.Text + "'");
 
             }
             else
             {
                 GetData("SELECT * FROM pokoje");
-                
+
             }
         }
 
@@ -90,6 +94,7 @@ namespace Rezerwacja_w_hotelu
             //this.Hide();
             Form4 form = new Form4();
             form.Show();
+            form.form = this;
 
         }
 
@@ -99,12 +104,53 @@ namespace Rezerwacja_w_hotelu
             grid.value_return(dataGridView1);
             Form3 form = new Form3();
             form.Show();
+            form.form = this;
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
+            // TODO: This line of code loads data into the 'baza_danychDataSet.pokoje' table. You can move, or remove it, as needed.
+            //this.pokojeTableAdapter.Fill(this.baza_danychDataSet.pokoje);
+            // TODO: This line of code loads data into the 'baza_danychDataSet.uzytkownicy' table. You can move, or remove it, as needed.
+            this.uzytkownicyTableAdapter.Fill(this.baza_danychDataSet.uzytkownicy);
             button1.PerformClick();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form1 form1 = new Form1();
+            form1.Show();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewCell oneCell in dataGridView2.SelectedCells)
+            {
+                if (oneCell.Selected)
+                    dataGridView2.Rows.RemoveAt(oneCell.RowIndex);
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Form5 form = new Form5();
+            form.datagrid = dataGridView2;
+            form.Show();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            dataGridView2.EndEdit();
+            dataGridView2.Parent.Refresh();
+            dataGridView2.Refresh();
+            
+        }
+
+
+        
 
  
 

@@ -13,6 +13,7 @@ namespace Rezerwacja_w_hotelu
 {
     public partial class Form3 : Form
     {
+        public Form2 form;
         grid_operation grid = new grid_operation();
         public Form3()
         {
@@ -70,6 +71,7 @@ namespace Rezerwacja_w_hotelu
                 cmd.CommandText = "UPDATE pokoje SET stan_pokoju = 'false', Data_pocz_rezerwacji =NULL, Data_kon_rezerwacji=NULL, Uzytkownik_rezerwujacy=''WHERE numer_pokoju='" + grid.row_value()[0] + "'";
                 cmd.ExecuteNonQuery();
                 connect.Close();
+                form.update_database();
                 this.Hide();
             }else
             {

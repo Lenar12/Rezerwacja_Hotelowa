@@ -13,6 +13,7 @@ namespace Rezerwacja_w_hotelu
     public partial class Form5 : Form
     {
         // Forma do tworzenia konta
+        public DataGridView datagrid;
         public Form5()
         {
             InitializeComponent();
@@ -43,6 +44,8 @@ namespace Rezerwacja_w_hotelu
             command.Connection.Close();
 
                 MessageBox.Show("Uzytkownik "+Login_box.Text+" zarejstrowany pomyślnie");
+
+                datagrid.Refresh();
                 this.Hide();
             }
             catch( SqlException ex)
