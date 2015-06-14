@@ -132,6 +132,9 @@ namespace Rezerwacja_w_hotelu
                 if (oneCell.Selected)
                     dataGridView2.Rows.RemoveAt(oneCell.RowIndex);
             }
+            SqlConnection connect = sql_connection.GetConnection();
+            SqlDataAdapter adapter = new SqlDataAdapter("",connect);
+            adapter.Update(baza_danychDataSet.uzytkownicy);
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -142,13 +145,26 @@ namespace Rezerwacja_w_hotelu
         }
 
         private void button7_Click(object sender, EventArgs e)
-        {
-            dataGridView2.EndEdit();
-            dataGridView2.Parent.Refresh();
-            dataGridView2.Refresh();
-            
+        {  
+            update_users();
         }
 
+        private void update_users()
+        {
+            try
+            {
+                SqlConnection connect = sql_connection.GetConnection();
+                SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM uzytkownicy ", connect);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                // wyświetlenie tabeli pokoi
+                dataGridView2.DataSource = dt;
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         
 

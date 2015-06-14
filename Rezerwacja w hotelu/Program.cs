@@ -16,7 +16,7 @@ namespace Rezerwacja_w_hotelu
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new LoginPanel());
         }
     }
 }
