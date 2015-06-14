@@ -41,19 +41,19 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button4 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.peselDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.imieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nazwiskoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.loginDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hasloDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.uprawnieniaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.uzytkownicyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.baza_danychDataSet = new Rezerwacja_w_hotelu.baza_danychDataSet();
             this.uzytkownicyTableAdapter = new Rezerwacja_w_hotelu.baza_danychDataSetTableAdapters.uzytkownicyTableAdapter();
-            this.button7 = new System.Windows.Forms.Button();
+            this.uprawnieniaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hasloDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.loginDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nazwiskoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.imieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.peselDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -197,6 +197,16 @@
             this.tabPage2.Text = "Użytkownicy";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(454, 319);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.TabIndex = 3;
+            this.button7.Text = "button7";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // button6
             // 
             this.button6.Location = new System.Drawing.Point(218, 307);
@@ -237,48 +247,6 @@
             this.dataGridView2.Size = new System.Drawing.Size(735, 285);
             this.dataGridView2.TabIndex = 0;
             // 
-            // peselDataGridViewTextBoxColumn
-            // 
-            this.peselDataGridViewTextBoxColumn.DataPropertyName = "pesel";
-            this.peselDataGridViewTextBoxColumn.HeaderText = "pesel";
-            this.peselDataGridViewTextBoxColumn.Name = "peselDataGridViewTextBoxColumn";
-            this.peselDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // imieDataGridViewTextBoxColumn
-            // 
-            this.imieDataGridViewTextBoxColumn.DataPropertyName = "imie";
-            this.imieDataGridViewTextBoxColumn.HeaderText = "imie";
-            this.imieDataGridViewTextBoxColumn.Name = "imieDataGridViewTextBoxColumn";
-            this.imieDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // nazwiskoDataGridViewTextBoxColumn
-            // 
-            this.nazwiskoDataGridViewTextBoxColumn.DataPropertyName = "nazwisko";
-            this.nazwiskoDataGridViewTextBoxColumn.HeaderText = "nazwisko";
-            this.nazwiskoDataGridViewTextBoxColumn.Name = "nazwiskoDataGridViewTextBoxColumn";
-            this.nazwiskoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // loginDataGridViewTextBoxColumn
-            // 
-            this.loginDataGridViewTextBoxColumn.DataPropertyName = "login";
-            this.loginDataGridViewTextBoxColumn.HeaderText = "login";
-            this.loginDataGridViewTextBoxColumn.Name = "loginDataGridViewTextBoxColumn";
-            this.loginDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // hasloDataGridViewTextBoxColumn
-            // 
-            this.hasloDataGridViewTextBoxColumn.DataPropertyName = "haslo";
-            this.hasloDataGridViewTextBoxColumn.HeaderText = "haslo";
-            this.hasloDataGridViewTextBoxColumn.Name = "hasloDataGridViewTextBoxColumn";
-            this.hasloDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // uprawnieniaDataGridViewTextBoxColumn
-            // 
-            this.uprawnieniaDataGridViewTextBoxColumn.DataPropertyName = "uprawnienia";
-            this.uprawnieniaDataGridViewTextBoxColumn.HeaderText = "uprawnienia";
-            this.uprawnieniaDataGridViewTextBoxColumn.Name = "uprawnieniaDataGridViewTextBoxColumn";
-            this.uprawnieniaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // uzytkownicyBindingSource
             // 
             this.uzytkownicyBindingSource.DataMember = "uzytkownicy";
@@ -293,15 +261,47 @@
             // 
             this.uzytkownicyTableAdapter.ClearBeforeFill = true;
             // 
-            // button7
+            // uprawnieniaDataGridViewTextBoxColumn
             // 
-            this.button7.Location = new System.Drawing.Point(454, 319);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 3;
-            this.button7.Text = "button7";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.uprawnieniaDataGridViewTextBoxColumn.DataPropertyName = "uprawnienia";
+            this.uprawnieniaDataGridViewTextBoxColumn.HeaderText = "uprawnienia";
+            this.uprawnieniaDataGridViewTextBoxColumn.Name = "uprawnieniaDataGridViewTextBoxColumn";
+            this.uprawnieniaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // hasloDataGridViewTextBoxColumn
+            // 
+            this.hasloDataGridViewTextBoxColumn.DataPropertyName = "haslo";
+            this.hasloDataGridViewTextBoxColumn.HeaderText = "haslo";
+            this.hasloDataGridViewTextBoxColumn.Name = "hasloDataGridViewTextBoxColumn";
+            this.hasloDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // loginDataGridViewTextBoxColumn
+            // 
+            this.loginDataGridViewTextBoxColumn.DataPropertyName = "login";
+            this.loginDataGridViewTextBoxColumn.HeaderText = "login";
+            this.loginDataGridViewTextBoxColumn.Name = "loginDataGridViewTextBoxColumn";
+            this.loginDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nazwiskoDataGridViewTextBoxColumn
+            // 
+            this.nazwiskoDataGridViewTextBoxColumn.DataPropertyName = "nazwisko";
+            this.nazwiskoDataGridViewTextBoxColumn.HeaderText = "nazwisko";
+            this.nazwiskoDataGridViewTextBoxColumn.Name = "nazwiskoDataGridViewTextBoxColumn";
+            this.nazwiskoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // imieDataGridViewTextBoxColumn
+            // 
+            this.imieDataGridViewTextBoxColumn.DataPropertyName = "imie";
+            this.imieDataGridViewTextBoxColumn.HeaderText = "imie";
+            this.imieDataGridViewTextBoxColumn.Name = "imieDataGridViewTextBoxColumn";
+            this.imieDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // peselDataGridViewTextBoxColumn
+            // 
+            this.peselDataGridViewTextBoxColumn.DataPropertyName = "pesel";
+            this.peselDataGridViewTextBoxColumn.HeaderText = "pesel";
+            this.peselDataGridViewTextBoxColumn.Name = "peselDataGridViewTextBoxColumn";
+            this.peselDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // Form2
             // 
@@ -343,16 +343,16 @@
         private System.Windows.Forms.BindingSource uzytkownicyBindingSource;
         private baza_danychDataSetTableAdapters.uzytkownicyTableAdapter uzytkownicyTableAdapter;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.DataGridViewTextBoxColumn peselDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn imieDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nazwiskoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn loginDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hasloDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn uprawnieniaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button7;
 
 
     }
