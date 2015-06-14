@@ -16,6 +16,7 @@ namespace Rezerwacja_w_hotelu
         SqlConnection connect = new SqlConnection();
         SqlDataAdapter adapter = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
+        PokojeDataContext pokoj = new PokojeDataContext();
 
         public Form4()
         {
@@ -73,6 +74,8 @@ namespace Rezerwacja_w_hotelu
 
         private void MakeAcc_button_Click(object sender, EventArgs e)
         { //stworz konto 
+            var query = (from c in pokoj.pokojes where c.numer_pokoju== 202 select new { c.ilosc_miejsc }).ToArray();
+            numroom_box.Text = query[0].ilosc_miejsc.ToString();
             Form5 form = new Form5();
             form.Show();
         }
@@ -124,6 +127,11 @@ namespace Rezerwacja_w_hotelu
         }
 
         private void fromrez_box_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numroom_box_TextChanged(object sender, EventArgs e)
         {
 
         }

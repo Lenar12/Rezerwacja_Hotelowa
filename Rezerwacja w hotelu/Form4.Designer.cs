@@ -53,6 +53,7 @@
             this.numroom_box.Name = "numroom_box";
             this.numroom_box.Size = new System.Drawing.Size(100, 20);
             this.numroom_box.TabIndex = 0;
+            this.numroom_box.TextChanged += new System.EventHandler(this.numroom_box_TextChanged);
             // 
             // label1
             // 
